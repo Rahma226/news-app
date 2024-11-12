@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import '../models/results_model.dart';
 
 class NewsService {
@@ -8,8 +9,9 @@ class NewsService {
 
   Future<List<ResultsModel>> getLatestNews() async {
     try {
+      String apiKey = dotenv.env['API_KEY']!;
       Response response = await dio.get(
-          'https://newsdata.io/api/1/latest?apikey=pub_56627fc63a79bbfb5730802962c0cfaa2c80a&language=en');
+          'https://newsdata.io/api/1/latest?apikey=$apiKey&language=en');
 
       if (response.statusCode == 200) {
         Map<String, dynamic> jsonData = response.data;
